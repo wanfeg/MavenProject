@@ -9,6 +9,11 @@ package com.example.mavenproject.common;
 public class haha {
     public static void main(String[] args) {
         System.out.println("haha");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Thread thread = Thread.currentThread();
         System.out.println("thread = " + thread);
     }
