@@ -16,6 +16,7 @@ public class haha {
         }
         Thread thread = Thread.currentThread();
         System.out.println("thread = " + thread);
+        System.out.println("推送到主分支");
     }
 
 }
