@@ -1,0 +1,18 @@
+
+spring:
+  profiles:
+    active: application-dev.yml
+
+server:
+  servlet:
+    context-path: /nihk
+#  port: 9123
+
+my:
+  config:
+    savePath: D:\uploadFile
+
+
+
+
+
