@@ -1,5 +1,7 @@
 package com.example.mavenproject.common;
 
+import org.apache.tomcat.util.threads.ThreadPoolExecutor;
+
 /**
  * @author :Aurora
  * @version:
@@ -17,7 +19,11 @@ public class haha {
         Thread thread = Thread.currentThread();
         System.out.println("thread = " + thread);
         System.out.println("推送到主分支");
-
+        Thread thread1 = new Thread(new Runnable() {
+            public void run() {
+                System.out.println("你好Runnable");
+            }
+        });
     }
 
 }
