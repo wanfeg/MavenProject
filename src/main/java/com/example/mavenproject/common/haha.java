@@ -24,6 +24,7 @@ public class haha {
                 System.out.println("你好Runnable");
             }
         });
+        thread1.start();
     }
 
 }
