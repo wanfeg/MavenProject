@@ -1,5 +1,7 @@
 package com.example.mavenproject.common;
 
+import com.example.mavenproject.pojo.Person;
+
 /**
  * @author :Aurora
  * @version:
@@ -10,5 +12,6 @@ public class test {
 
     public static void main(String[] args) {
         System.out.println("hello test");
+        Person person = new Person("光头强",32);
     }
 }
