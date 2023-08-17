@@ -24,7 +24,7 @@ public class MyProxyTest {
         IHello iHello1 = (IHello) constructor.newInstance(new MyInvocationHandler(new HelloImpl()));
         // 5、通过代理对象调用目标方法
         iHello1.sayHello();
- 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         // ==========================第二种=============================
         /**
          * Proxy类中还有个将2~4步骤封装好的简便方法来创建动态代理对象，
@@ -35,5 +35,6 @@ public class MyProxyTest {
                 new Class[]{IHello.class}, // 一组接口
                 new MyInvocationHandler(new HelloImpl())); // 自定义的InvocationHandler
         iHello2.sayHello();
+
     }
 }
