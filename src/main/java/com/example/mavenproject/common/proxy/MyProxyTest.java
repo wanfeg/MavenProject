@@ -1,7 +1,6 @@
 package com.example.mavenproject.common.proxy;
 
 import com.example.mavenproject.common.MyInvocationHandler;
-import com.example.mavenproject.common.haha;
 import com.example.mavenproject.service.IHello;
 import com.example.mavenproject.service.impl.HelloImpl;
 
@@ -33,7 +32,7 @@ public class MyProxyTest {
          */
 
         IHello  iHello2 = (IHello) Proxy.newProxyInstance(IHello.class.getClassLoader(), // 加载接口的类加载器
-                new Class[]{IHello.class,haha.class}, // 一组接口
+                new Class[]{IHello.class}, // 一组接口
                 new MyInvocationHandler(new HelloImpl())); // 自定义的InvocationHandler
         iHello2.sayHello();
     }
