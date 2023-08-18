@@ -8,7 +8,7 @@ import net.sf.cglib.proxy.Enhancer;
 public class Client {
     public static void main(String[] args) {
         // 代理类class文件存入本地磁盘方便我们反编译查看源码
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:\\code");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "E:\\aurora\\MyProject\\MavenProject\\com\\sun");
         // 通过CGLIB动态代理获取代理对象的过程
         Enhancer enhancer = new Enhancer();
         // 设置enhancer对象的父类
