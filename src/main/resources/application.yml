@@ -1,12 +1,11 @@
-
 spring:
   profiles:
-    active: application-dev.yml
+    active: prod
 
 server:
   servlet:
-    context-path: /nihk
-#  port: 9123
+    context-path: /mavenProject
+  port: 8848
 
 my:
   config:

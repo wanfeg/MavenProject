@@ -9,6 +9,17 @@
     <input type="file" id="fileInput" multiple>
     <button type="button" onclick="upload()" >上传</button>
 </form>
+    <hr>
+    <button>
+        <a href="http://localhost:8080/mavenProject/file/download.json">single download</a>
+    </button>
+    <label for="favorite">爱好：</label>
+    <select id="favorite" >
+        <option>选择爱好</option>
+        <option value="soccer">足球</option>
+        <option value="basket">篮球</option>
+        <option value="yumao" selected >羽毛球</option>
+    </select>
 <script>
     function upload() {
         var fileInput = document.getElementById('fileInput');

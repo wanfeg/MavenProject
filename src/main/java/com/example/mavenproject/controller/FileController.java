@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +84,41 @@ public class FileController {
         			resourceLoader.getResource("file:" + uploadPath + fileName); //由于是本地文件，所以开头是"file"，如果是服务器，请改成自己服务器前缀
         return resource.getURI().toString();
     }
+
+
+    @RequestMapping(value="download.json")
+    public boolean download(HttpServletResponse res) throws IOException {
+        File file = new File("C:\\Users\\abbyw\\Desktop\\图片\\wallhaven-yxgmll.png");
+        String fileName = "wallhaven-yxgmll.png";
+        // 如果不设置这个响应头的话，点击a标签图片会直接展示在当前页面上，类似于预览
+        res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        byte[] buff = new byte[1024];
+        BufferedInputStream bis = null;
+        OutputStream os = null;
+        try {
+            os = res.getOutputStream();
+            bis = new BufferedInputStream(new FileInputStream(file));
+            int i = bis.read(buff);
+            while (i != -1) {
+                os.write(buff, 0, buff.length);
+                os.flush();
+                i = bis.read(buff);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("success");
+        return false;
+    }
+
+
 
 }
