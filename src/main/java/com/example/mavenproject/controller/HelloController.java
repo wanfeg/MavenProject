@@ -1,13 +1,10 @@
 package com.example.mavenproject.controller;
 
-import jdk.internal.util.xml.impl.Input;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.Servlet;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author :Aurora
@@ -20,7 +17,13 @@ import java.io.InputStream;
 public class HelloController {
 
     @RequestMapping("/test")
-    public String test1(){
+    public String test1(@RequestHeader(value = "host") String host ,
+                        @RequestHeader(value = "User-agent") String agent,
+                                HttpServletRequest request){
+        System.out.println("host = " + host);
+        System.out.println("agent = " + agent);
+        System.out.println("request.getHeader(\"Host\") = " + request.getHeader("host"));
+        System.out.println("request.getHeader(\"User-agent\") = " + request.getHeader("User-agent"));
         return "hello web i see you";
     }
 

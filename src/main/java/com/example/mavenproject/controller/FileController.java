@@ -39,7 +39,7 @@ public class FileController {
         if (tempFileName == null) {
             int index = fileName.lastIndexOf(".");
             String photoType = fileName.substring(index);
-            tempFileName = String.valueOf(UUID.randomUUID()) + photoType ;
+            tempFileName = UUID.randomUUID() + photoType ;
         }
         fileName = tempFileName;
         // 将分片保存到临时文件夹中
