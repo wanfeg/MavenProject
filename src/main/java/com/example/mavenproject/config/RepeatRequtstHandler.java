@@ -1,5 +1,6 @@
 package com.example.mavenproject.config;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date : 2023/8/11 14:10
  * @desc:
  */
+@Component
 public class RepeatRequtstHandler implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

@@ -3,6 +3,7 @@ package com.example.mavenproject.common;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Base64;
 
 /**
  * @author :Aurora
@@ -29,6 +30,7 @@ public class ByteString {
         System.out.println("Arrays.toString(bytes) = " + Arrays.toString(bytes));
         String s = new String(bytes, "GBk");
         System.out.println("s = " + s);
+        //Base64.getDecoder().decode();
     }
 
     // byte数组转换成2进制字符串
@@ -66,8 +68,10 @@ public class ByteString {
             byte b = (byte) Integer.parseInt(byteString, 2);
             bytes[i / 8] = b;
         }
+        // TODO: 2023/9/7
         return bytes;
     }
 
+    // TODO: 2023/9/7 此处需要编写一个快算排序方法
 
 }

@@ -4,19 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
@@ -39,7 +34,7 @@ public class FileController {
         if (tempFileName == null) {
             int index = fileName.lastIndexOf(".");
             String photoType = fileName.substring(index);
-            tempFileName = UUID.randomUUID() + photoType ;
+            tempFileName = UUID.randomUUID() + photoType;
         }
         fileName = tempFileName;
         // 将分片保存到临时文件夹中
@@ -58,7 +53,7 @@ public class FileController {
     }
 
     @PostMapping("/merge")
-    public String merge(@RequestParam String fileName) throws IOException {
+    public String merge(@RequestParam(required = false) String fileName) throws IOException {
 
         // 获取所有分片，并按照分片的顺序将它们合并成一个文件
         fileName = tempFileName;
@@ -81,31 +76,51 @@ public class FileController {
         tempFileName = null;
         // 获取文件的访问URL
         Resource resource =
-        			resourceLoader.getResource("file:" + uploadPath + fileName); //由于是本地文件，所以开头是"file"，如果是服务器，请改成自己服务器前缀
+                resourceLoader.getResource("file:" + uploadPath + fileName); //由于是本地文件，所以开头是"file"，如果是服务器，请改成自己服务器前缀
         return resource.getURI().toString();
     }
 
 
-    @RequestMapping(value="download.json")
-    public boolean download(HttpServletResponse res) throws IOException {
-        File file = new File("C:\\Users\\abbyw\\Desktop\\图片\\wallhaven-yxgmll.png");
-        String fileName = "wallhaven-yxgmll.png";
-        // 如果不设置这个响应头的话，点击a标签图片会直接展示在当前页面上，类似于预览
-        res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-        byte[] buff = new byte[1024];
+    @RequestMapping(value = "/download.json")
+    public String download(HttpServletResponse res) throws IOException {
         BufferedInputStream bis = null;
-        OutputStream os = null;
         try {
-            os = res.getOutputStream();
+            File file = new File("C:\\Users\\abbyw\\Desktop\\图片\\wallhaven-yxgmll.png");
+            String fileName = "wallhaven-yxgmll.png";
+
+            if (!file.exists()) {
+                // 如果文件不存在，返回 404 Not Found 状态码和错误消息
+                return "文件不存在！";
+            }
+
+            byte[] buff = new byte[1024];
+            OutputStream os = null;
             bis = new BufferedInputStream(new FileInputStream(file));
+
+            os = res.getOutputStream();
+
+            //int a = 1 / 0;
             int i = bis.read(buff);
+            // 如果不设置这个响应头的话，点击a标签图片会直接展示在当前页面上，类似于预览
+            res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
             while (i != -1) {
-                os.write(buff, 0, buff.length);
+                System.out.println("i = " + i);
+                if (i != buff.length) {
+                    os.write(buff, 0, i);
+                } else {
+                    os.write(buff, 0, buff.length);
+                }
+                //System.out.println("Arrays.toString(buff) = " + Arrays.toString(buff));
                 os.flush();
                 i = bis.read(buff);
             }
-        } catch (IOException e) {
+
+            res.setContentType("application/octet-stream");
+
+        } catch (Exception e) {
             e.printStackTrace();
+            return "后端报错了！";
+
         } finally {
             if (bis != null) {
                 try {
@@ -114,11 +129,9 @@ public class FileController {
                     e.printStackTrace();
                 }
             }
+
         }
-        System.out.println("success");
-        return false;
+        return "success";
     }
-
-
 
 }
