@@ -1,5 +1,6 @@
 package com.example.mavenproject.service.impl;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.example.mavenproject.service.AobingService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,8 @@
 package com.example.mavenproject.common;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author :Aurora
  * @version:
@@ -31,7 +34,7 @@ public class A {
         private int cb = 13;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
         B b1 = new A.B();
         B b = new B();
         System.out.println(b);
@@ -42,6 +45,12 @@ public class A {
         System.out.println(stringBuffer);
         System.out.println(stringBuffer.length());
         System.out.println(System.currentTimeMillis());
+        String s1 = "中文黑";
+        byte[] bytes = s1.getBytes(StandardCharsets.UTF_8);
+        String gb2312 = new String(bytes, "gb2312");
+        //String s2 = new String(gb2312.getBytes("GB2312"), "gbk");
+        System.out.println("gb2312 = " + gb2312);
+        //System.out.println("s2 = " + s2);
     }
 
     public void ac(){

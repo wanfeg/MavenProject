@@ -3,4 +3,16 @@ server:
   servlet:
     context-path: /helloWeb
 
+#spring:
+#  aop:
+#    auto: true
+
+# spring定时任务线程池的设置
+spring:
+  task:
+    scheduling:
+      thread-name-prefix: "scheduling-"
+      pool:
+        size: 2
+
 
